@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+        <meta charset="utf-8">
+        <style>
+            html, body {
+                padding: 0px;
+                margin: 0px;
+                border: 0px;
+                background-color: #000000;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" style="touch-action:none; display:block; left:0px; top:0px; position:fixed"></canvas>
+        <script type="text/javascript">
+
+        "use strict";
+
+        //---------------------------------------------------------
+        function getQueryStrings () {
+            // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+            var match,
+                pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) {return decodeURIComponent (s.replace (pl, " "));},
+                query  = window.location.search.substring (1);
+            var urlParams = {};
+            while (match = search.exec (query)) {
+                urlParams [decode (match[1])] = decode (match [2]);
+            }
+            return urlParams;
+        };
+
+        //---------------------------------------------------------
+        function isInIframe () {
+            try {
+                return (window.self !== window.top);
+            } catch (e) {
+                return true;
+            }
+        };
+
+        //---------------------------------------------------------
+        function asyncLoadScript (url, onSuccess, onError) {
+            var script = document.createElement ("script");
+            script.type = "text/javascript";
+            if (script.readyState) {  // IE - to detect failure to download script requires a timeout
+                script.onreadystatechange = function () {
+                    if (script.readyState === "loaded" || script.readyState === "complete") {
+                        script.onreadystatechange = null;
+                        onSuccess ();
+                    }
+                };
+            } else {  // Others
+                script.onload = function () {
+                    onSuccess ();
+                };
+                script.onerror = function () {
+                    if (onError) {
+                        onError ();
+                    }
+                }
+            }
+            script.src = url;
+            document.body.appendChild (script);
+        };
+
+        //---------------------------------------------------------
+        function gameRun () {
+            console.assert (window.swan.game && window.swan.game.run);
+            var config = {
+                qs: getQueryStrings (),
+                index: {asyncLoadScript, isInIframe}
+            };
+            window.swan.game.run (config);
+        };
+
+        //---------------------------------------------------------
+        function gameQuit () {
+            // an error before loader fully loaded quits immediately
+            console.log ("error");
+        };
+
+        //---------------------------------------------------------
+        (function () {
+            window.swan = {};
+            asyncLoadScript ("src/game-bundle.js", gameRun, gameQuit);
+        }) ();
+
+    </script>
+  </body>
+</html>

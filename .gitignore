@@ -1,0 +1,10 @@
+node_modules/*
+deploy/*-bundle*
+yarn-error.log
+*.zip
+.yarnclean
+.DS_Store
+Thumbs.db
+diff.txt
+lint.txt
+_debug

@@ -1,0 +1,23 @@
+{
+    "deploy": "./deploy",
+    "license": "UNLICENSED",
+    "scripts": {
+        "start": "static -a 0.0.0.0 deploy",
+        "clean": "cross-var \"rm -rf $npm_package_deploy/src && node scripts/file/mkdir.js $npm_package_deploy/src\"",
+        "game-debug": "cross-var \"node scripts/build-game-src.js -t game -b debug\""
+    },
+    "dependencies": {
+        "@tweenjs/tween.js": "^23.1.1",
+        "pixi.js": "5.2.1"
+    },
+    "devDependencies": {
+        "@babel/core": "7.2.2",
+        "@babel/preset-env": "7.2.3",
+        "babelify": "10.0.0",
+        "browserify": "14.5.0",
+        "cross-var": "1.1.0",
+        "envify": "4.1.0",
+        "node-static": "0.7.10",
+        "watchify": "3.11.0"
+    }
+}

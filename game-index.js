@@ -1,11 +1,12 @@
 //------------------------------------------------------------------------------
 window.PIXI = require ("pixi.js");
 
+const Components = require ('./src/components.js');
 const Events = require ('./src/events.js');
+const FakeBackend = require ('./src/backends/fake-backend.js');
 const Gamestates = require ('./src/gamestate-manager.js');
 const Resources = require ('./src/resources.js');
-
-const manifest = require ('./src/resource-manifest.json');
+const Session = require ('./src/session.js');
 
 //------------------------------------------------------------------------------
 function initPixi (onTick, payload) {
@@ -17,7 +18,7 @@ function initPixi (onTick, payload) {
         width:             window.innerWidth,
         height:            window.innerHeight,
         resolution:        window.devicePixelRatio,
-        clearBeforeRender: false,
+        clearBeforeRender: true,
         autoResize:        false,
         transparent:       false,
         roundPixels:       false,
@@ -36,15 +37,23 @@ function initPixi (onTick, payload) {
 }
 
 //------------------------------------------------------------------------------
-function initModules (manifest, onTick) {
+function initModules (onTick) {
     const modules = {
+        backend: null,
+        components: null,
+        events: null,
         pixi: null,
-        res: null
+        resources: null,
+        session: null,
+        states: null,
     };
 
+    modules.backend = new FakeBackend ();
+    modules.components = new Components (modules);
     modules.events = new Events ();
     modules.pixi = initPixi (onTick, modules);
-    modules.res = new Resources (manifest);
+    modules.resources = new Resources ();
+    modules.session = new Session (modules);
     modules.states = new Gamestates (modules);
 
     return modules;
@@ -58,16 +67,7 @@ function onTick (payload) {
 //------------------------------------------------------------------------------
 window.swan.game = {
     run: function (pageConfig) {
-        const modules = initModules (manifest, onTick);
-
-        const text = new PIXI.Text ('hello world', {
-            fontFamily: 'Arial',
-            fontSize: 100,
-            fill: 0xffffff
-        });
-        text.position.set (100, 100);
-        modules.pixi.stage.addChild (text);
-
+        const modules = initModules (onTick);
         modules.states.changeState ('loading');
     }
 }

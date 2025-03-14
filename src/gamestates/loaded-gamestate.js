@@ -2,15 +2,17 @@
 function LoadedGamestate (modules) {
     const self = this;
 
-    this.mods = modules;
+    this.id = 'loaded';
 
     //------------------------------------------------------------------------------
     this.onEnter = () => {
+        modules.components.postLoadInit ();
+        modules.events.push ({id: 'SETUP_SUCCESS'});
+    }
 
-        const t = self.mods.res.getTexture ('symbol9');
-        const s = new PIXI.Sprite (t);
-        s.position.set (100, 100);
-        self.mods.pixi.stage.addChild (s);
+    //------------------------------------------------------------------------------
+    this.transitions = {
+        SETUP_SUCCESS: {nextState: 'idle'}
     }
 }
 

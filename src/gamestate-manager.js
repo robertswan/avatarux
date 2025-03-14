@@ -1,6 +1,9 @@
 //------------------------------------------------------------------------------
+const Idle = require ('./gamestates/idle-gamestate.js');
+const Handshake = require ('./gamestates/handshake-gamestate.js');
 const Loading = require ('./gamestates/loading-gamestate.js');
 const Loaded = require ('./gamestates/loaded-gamestate.js');
+const SpinRequest = require ('./gamestates/spin-request-gamestate.js');
 
 //------------------------------------------------------------------------------
 function GamestateManager (modules) {
@@ -11,10 +14,19 @@ function GamestateManager (modules) {
 
     //------------------------------------------------------------------------------
     function construct () {
-        self.states.loading = new Loading (modules);
-        self.states.loaded = new Loaded (modules);
-        // this.states.idle = new Idle ();
-        // this.states.spinRequest = new SpinRequest ();
+        const states = [
+            new Idle (modules),
+            new Handshake (modules),
+            new Loading (modules),
+            new Loaded (modules),
+            new SpinRequest (modules)
+        ];
+
+        states.forEach (state => {
+            console.assert (typeof state.id === 'string');
+            console.assert (!(state.id in self.states));
+            self.states [state.id] = state;
+        })
     }
     construct ();
 
@@ -24,8 +36,12 @@ function GamestateManager (modules) {
             const e = modules.events.pop ();
             console.assert (typeof e.id === 'string');
             const t = self.currentState.transitions;
-            console.assert (t && t [e.id] && typeof t [e.id].nextState === 'string');
-            self.changeState (t [e.id].nextState);
+            if (t && t [e.id]) {
+                console.assert (t && t [e.id] && typeof t [e.id].nextState === 'string');
+                self.changeState (t [e.id].nextState);
+            } else {
+                console.warn ('transition event ignored', e.id);
+            }
         }
 
         if (self.currentState && self.currentState.onTick) {

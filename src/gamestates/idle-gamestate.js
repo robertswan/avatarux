@@ -1,21 +1,24 @@
 //------------------------------------------------------------------------------
-function LoadingGamestate (modules) {
+function IdleGamestate (modules) {
     const self = this;
 
-    this.id = 'loading';
+    this.id = 'idle';
 
     //------------------------------------------------------------------------------
     this.onEnter = () => {
-        modules.resources.loadTextures ('textures', () => {
-            modules.events.push ({id: 'LOAD_SUCCESS'});
-        })
+        modules.components.gameUi.enable ();
+    }
+
+    //------------------------------------------------------------------------------
+    this.onExit = () => {
+        modules.components.gameUi.disable ();
     }
 
     //------------------------------------------------------------------------------
     this.transitions = {
-        LOAD_SUCCESS: {nextState: 'handshake'}
+        SPIN_CLICKED: {nextState: 'spinRequest'}
     }
 }
 
 //------------------------------------------------------------------------------
-module.exports = LoadingGamestate;
+module.exports = IdleGamestate;

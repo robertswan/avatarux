@@ -1,12 +1,14 @@
 //------------------------------------------------------------------------------
 window.PIXI = require ("pixi.js");
 
+const Events = require ('./src/events.js');
+const Gamestates = require ('./src/gamestate-manager.js');
 const Resources = require ('./src/resources.js');
 
 const manifest = require ('./src/resource-manifest.json');
 
 //------------------------------------------------------------------------------
-function initPixi (onTick) {
+function initPixi (onTick, payload) {
     const canvas = document.getElementById ('canvas');
 
     PIXI.settings.RESOLUTION = window.devicePixelRatio || 1;
@@ -28,35 +30,29 @@ function initPixi (onTick) {
     const renderer = new PIXI.Application (rendererOptions);
     renderer.view.style.position = "fixed";
 
-    renderer.ticker.add (() => {onTick ();});
+    renderer.ticker.add (() => {onTick (payload);});
 
     return renderer;
 }
 
 //------------------------------------------------------------------------------
-function loadResources (manifest) {
-    const resources = new Resources (manifest);
-    resources.loadBundle ('textures');
-    return resources;
-}
-
-//------------------------------------------------------------------------------
 function initModules (manifest, onTick) {
-
     const modules = {
         pixi: null,
         res: null
     };
 
-    modules.pixi = initPixi (onTick);
-    modules.res = new loadResources (manifest);
+    modules.events = new Events ();
+    modules.pixi = initPixi (onTick, modules);
+    modules.res = new Resources (manifest);
+    modules.states = new Gamestates (modules);
 
     return modules;
 }
 
 //------------------------------------------------------------------------------
-function onTick () {
-    console.log ('tick');
+function onTick (payload) {
+    payload.states.tick ();
 }
 
 //------------------------------------------------------------------------------
@@ -71,6 +67,7 @@ window.swan.game = {
         });
         text.position.set (100, 100);
         modules.pixi.stage.addChild (text);
+
+        modules.states.changeState ('loading');
     }
 }
-

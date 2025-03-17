@@ -19,13 +19,13 @@ function Session (modules) {
     this.recordSpinResponse = (response) => {
         this.spin = response;
         this.balance = response.round.postSpinBalance;
-        modules.components.balanceBar.refresh ();
+        modules.components.balanceBar.updateBalance (this.balance);
     }
 
     //------------------------------------------------------------------------------
     this.finaliseSpinResponse = () => {
         this.balance = p.spin.round.finalBalance;
-        modules.components.balanceBar.refresh ();
+        modules.components.balanceBar.updateBalance (this.balance);
     }
 }
 

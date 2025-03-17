@@ -7,12 +7,14 @@ function SpinRequestGamestate (modules) {
     //------------------------------------------------------------------------------
     function onSpinResponse (response) {
         modules.session.recordSpinResponse (response);
-        // if (response)
+        modules.events.push ({id: ''})
+        //
     }
 
     //------------------------------------------------------------------------------
     this.onEnter = () => {
         modules.backend.requestSpin (modules.session.bet, onSpinResponse);
+        // start spin animations
     }
 
     //------------------------------------------------------------------------------

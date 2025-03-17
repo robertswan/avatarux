@@ -76,7 +76,7 @@ function FakeBackend (modules) {
             wins
         };
 
-        setTimeout (() => onResponse ({}), 1000);
+        setTimeout (() => onResponse (response), 1000);
     };
 }
 

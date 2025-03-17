@@ -14,8 +14,10 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
     };
 
     const config = {
-        dropDuration: 200,
-        dropHeight: 500
+        symbolH: 0,
+        dropDuration: 300,
+        dropHeight: 500,
+        dropSymbolInterval: 50
     }
 
     //------------------------------------------------------------------------------
@@ -26,38 +28,44 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
 
     //------------------------------------------------------------------------------
     this.beginSpin = (delay, onComplete) => {
-        const tween = new Tween.Tween (p.container)
-                .to ({y: config.dropHeight, alpha: 0}, config.dropDuration)
-                .easing (Tween.Easing.Cubic.In)
-                .delay (delay)
-                .start ();
 
-        if (onComplete) {
-            tween.onComplete (onComplete);
-        }
+        const lastIdx = p.symbols.length - 1;
+
+        p.symbols.forEach ((symbol, idx) => {
+            const tween = new Tween.Tween (symbol)
+                    .to ({y: config.dropHeight + config.symbolH * idx, alpha: 0}, config.dropDuration)
+                    .easing (Tween.Easing.Cubic.In)
+                    .delay (delay + config.dropSymbolInterval * (lastIdx - idx))
+                    .start ();
+
+            if (onComplete && idx === 0) {
+                tween.onComplete (onComplete);
+            }
+        });
     }
 
     //------------------------------------------------------------------------------
     this.endSpin = (columnface, delay, onComplete) => {
         console.assert (columnface.length === p.symbols.length);
 
-        p.container.alpha = 0;
-        p.container.y = -config.dropHeight;
+        const lastIdx = p.symbols.length - 1;
 
         p.symbols.forEach ((symbol, idx) => {
+            symbol.y = -config.dropHeight + config.symbolH * idx;
+            symbol.alpha = 0;
             symbol.texture = getSymbolTex (columnface [idx], false);
             p.symbolIds [idx] = columnface [idx];
+
+            const tween = new Tween.Tween (symbol)
+                    .to ({y: config.symbolH * idx, alpha: 1}, config.dropDuration)
+                    .easing (Tween.Easing.Cubic.In)
+                    .delay (delay + config.dropSymbolInterval * (lastIdx - idx))
+                    .start ();
+
+            if (onComplete && idx === 0) {
+                tween.onComplete (onComplete);
+            }
         });
-
-        const tween = new Tween.Tween (p.container)
-                .to ({y: 0, alpha: 1}, config.dropDuration)
-                .easing (Tween.Easing.Cubic.In)
-                .delay (delay)
-                .start ();
-
-        if (onComplete) {
-            tween.onComplete (onComplete);
-        }
     }
 
     //------------------------------------------------------------------------------
@@ -84,13 +92,15 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
     //------------------------------------------------------------------------------
     function construct () {
         const refTex = getSymbolTex (0, false);
+        config.symbolH = refTex.height;
+
         p.container.x = refTex.width * colIdx;
         parent.addChild (p.container);
 
         const s = modules.session;
         columnface.forEach ((symbolId, idx) => {
             const symbol = new PIXI.Sprite (getSymbolTex (symbolId, false));
-            symbol.y = idx * refTex.height;
+            symbol.y = idx * config.symbolH;
             p.container.addChild (symbol);
             p.symbols.push (symbol);
             p.symbolIds.push (symbolId);

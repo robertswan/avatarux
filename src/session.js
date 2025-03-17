@@ -20,11 +20,12 @@ function Session (modules) {
         self.spin = response;
         self.balance = response.round.postSpinBalance;
         modules.components.balanceBar.updateBalance (self.balance);
+        modules.components.legalInfo.updateRoundId (response.round.roundId);
     }
 
     //------------------------------------------------------------------------------
     this.finaliseSpinResponse = () => {
-        self.balance = p.spin.round.finalBalance;
+        self.balance = self.spin.round.finalBalance;
         modules.components.balanceBar.updateBalance (self.balance);
     }
 }

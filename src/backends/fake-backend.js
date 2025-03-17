@@ -1,5 +1,7 @@
 //------------------------------------------------------------------------------
-const mathConfig = require ('./math-config.json');
+const MathConfig = require ('./math-config.json');
+
+const Evaluate = require ('./evaluate-wins-any-ways-left-to-right.js');
 
 //------------------------------------------------------------------------------
 function FakeBackend (modules) {
@@ -7,11 +9,15 @@ function FakeBackend (modules) {
     //------------------------------------------------------------------------------
     const p = {
         balance: 10000,
-        w: mathConfig.reels.w,
-        h: mathConfig.reels.h,
-        ways: Math.pow (mathConfig.reels.h, mathConfig.reels.w),
+        w: MathConfig.reels.w,
+        h: MathConfig.reels.h,
+        ways: Math.pow (MathConfig.reels.h, MathConfig.reels.w),
         roundId: Math.floor (Math.random () * 100000000) + 100000000
-    }
+    };
+
+    const config = {
+        simulateServerDelay: 300
+    };
 
     //------------------------------------------------------------------------------
     this.requestOpenGame = (onResponse) => {
@@ -20,20 +26,20 @@ function FakeBackend (modules) {
             initialBet: 100,
             bets: [100],
 
-            paytable: mathConfig.paytable,
-            reels: mathConfig.reels,
-            symbols: mathConfig.symbols,
+            paytable: MathConfig.paytable,
+            reels: MathConfig.reels,
+            symbols: MathConfig.symbols,
             ways: p.ways
         };
 
-        setTimeout (() => onResponse (response), 200);
+        setTimeout (() => onResponse (response), config.simulateServerDelay);
     }
 
     //------------------------------------------------------------------------------
     function initRound (bet) {
 
         p.balance -= bet;
-        p.roundId += Math.floor (Math.random () * 200);
+        p.roundId += Math.floor (Math.random () * 10000);
 
         if (p.balance < 0) {
             p.balance = 10000 - bet // cycle now to avoid errors. Standard demo behaviour
@@ -43,7 +49,8 @@ function FakeBackend (modules) {
             postSpinBalance: p.balance,
             finalBalance: p.balance,
             bet: bet,
-            roundId: p.roundId
+            roundId: p.roundId,
+            grossWin: 0
         };
     }
 
@@ -53,7 +60,12 @@ function FakeBackend (modules) {
         for (let i = 0; i < p.w; ++i) {
             const col = [];
             for (let j = 0; j < p.h; ++j) {
-                col.push (Math.floor (Math.random () * 5) + 1);
+                // only allow bonus symbols on reels 0, 2, 4
+                if (i % 2 === 0) {
+                    col.push (Math.floor (Math.random () * 5));
+                } else {
+                    col.push (Math.floor (Math.random () * 4) + 1);
+                }
             }
             reels.push (col);
         }
@@ -62,7 +74,8 @@ function FakeBackend (modules) {
 
     //------------------------------------------------------------------------------
     function evaluateWins (round, reels) {
-        return {};
+        const wins = Evaluate (reels);
+        return wins;
     }
 
     //------------------------------------------------------------------------------
@@ -77,7 +90,13 @@ function FakeBackend (modules) {
             wins
         };
 
-        setTimeout (() => onResponse (response), 1000);
+        // sort wins and add them
+        wins.sort ((a, b) => {return b - a;});
+        round.grossWin = wins.reduce ((total, win) => {return total + win.grossWin;}, 0);
+
+        response.round.finalBalance = p.balance += round.grossWin;
+
+        setTimeout (() => onResponse (response), config.simulateServerDelay);
     };
 }
 

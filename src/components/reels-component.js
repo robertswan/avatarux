@@ -12,14 +12,21 @@ function ReelsComponent (modules) {
     };
 
     const config = {
-        delayPerCol: 200
+        appearDelayPerCol: 100,
+
+        wins: null,
+        winFlashDuration: 300,
+        winFlashesPerWin: 3,
+        winIdx: 0,
+        winFlashIdx: 0,
+        winInterval: null,
     }
 
     //------------------------------------------------------------------------------
     this.beginSpin = (onComplete) => {
         p.cols.forEach ((col, idx) => {
             const cb = (idx === p.cols.length - 1) ? onComplete : null;
-            col.beginSpin (idx * config.delayPerCol, cb);
+            col.beginSpin (idx * config.appearDelayPerCol, cb);
         });
     }
 
@@ -27,7 +34,7 @@ function ReelsComponent (modules) {
     this.endSpin = (slotface, onComplete) => {
         p.cols.forEach ((col, idx) => {
             const cb = (idx === p.cols.length - 1) ? onComplete : null;
-            col.endSpin (slotface [idx], idx * config.delayPerCol, cb);
+            col.endSpin (slotface [idx], idx * config.appearDelayPerCol, cb);
         });
     }
 
@@ -36,6 +43,47 @@ function ReelsComponent (modules) {
         p.cols.forEach ((col, idx) => {
             col.snaSymbols (slotface [idx]);
         });
+    }
+
+    //------------------------------------------------------------------------------
+    this.flashSymbols = (symbolsUsed) => {
+        p.cols.forEach ((col, idx) => {
+            col.flashSymbols (symbolsUsed [idx]);
+        });
+    }
+
+    //------------------------------------------------------------------------------
+    this.onWinInterval = () => {
+        p.cols.forEach (col => col.reset ());
+        ++p.winFlashIdx;
+        p.winFlashIdx = (p.winFlashIdx % (config.winFlashesPerWin * 2));
+        if (p.winFlashIdx === 0) {
+            ++p.winIdx;
+            p.winIdx = (p.winIdx % p.wins.length);
+        }
+        if (p.winFlashIdx % 2 === 1) {
+            self.flashSymbols (p.wins [p.winIdx].symbolsUsed);
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    this.cycleWins = (wins) => {
+        console.assert (!p.winInterval);
+
+        p.wins = wins;
+        p.winIdx = 0;
+        p.winFlashIdx = 0;
+        self.onWinInterval ();
+        p.winInterval = setInterval (self.onWinInterval.bind (self), config. winFlashDuration);
+    }
+
+    //------------------------------------------------------------------------------
+    this.reset = () => {
+        if (p.winInterval) {
+            clearInterval (p.winInterval);
+            p.winInterval = null;
+        }
+        p.cols.forEach (col => col.reset ());
     }
 
     //------------------------------------------------------------------------------

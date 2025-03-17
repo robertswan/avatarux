@@ -11,6 +11,7 @@ function IdleGamestate (modules) {
 
     //------------------------------------------------------------------------------
     this.onExit = () => {
+        modules.components.reels.reset ();
         modules.components.gameUi.disable ();
         modules.components.balanceBar.updateWin ();
     }

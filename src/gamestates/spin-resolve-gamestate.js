@@ -18,7 +18,7 @@ function SpinResolveGamestate (modules) {
 
     //------------------------------------------------------------------------------
     this.transitions = {
-        SPIN_WITH_WINS: {nextState: 'showWins'},
+        SPIN_WITH_WINS: {nextState: 'showBaseWins'},
         SPIN_NO_WINS: {nextState: 'idle'},
     }
 }

@@ -9,11 +9,12 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
     //------------------------------------------------------------------------------
     const p = {
         container: new PIXI.Container (),
-        symbols: []
+        symbols: [],
+        symbolIds: []
     };
 
     const config = {
-        dropDuration: 500,
+        dropDuration: 200,
         dropHeight: 500
     }
 
@@ -45,6 +46,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
 
         p.symbols.forEach ((symbol, idx) => {
             symbol.texture = getSymbolTex (columnface [idx], false);
+            p.symbolIds [idx] = columnface [idx];
         });
 
         const tween = new Tween.Tween (p.container)
@@ -59,6 +61,27 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
     }
 
     //------------------------------------------------------------------------------
+    this.flashSymbols = (symbolsUsed) => {
+        console.assert (symbolsUsed.length === p.symbols.length);
+
+        p.symbols.forEach ((symbol, idx) => {
+            if (symbolsUsed [idx]) {
+                symbol.texture = getSymbolTex (p.symbolIds [idx], true);
+            } else {
+                // symbol.alpha = 0.5;
+            }
+        });
+    }
+
+    //------------------------------------------------------------------------------
+    this.reset = () => {
+        p.symbols.forEach ((symbol, idx) => {
+            symbol.texture = getSymbolTex (p.symbolIds [idx], false);
+            // symbol.alpha = 1;
+        });
+    }
+
+    //------------------------------------------------------------------------------
     function construct () {
         const refTex = getSymbolTex (0, false);
         p.container.x = refTex.width * colIdx;
@@ -70,6 +93,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
             symbol.y = idx * refTex.height;
             p.container.addChild (symbol);
             p.symbols.push (symbol);
+            p.symbolIds.push (symbolId);
         })
     }
     construct ();

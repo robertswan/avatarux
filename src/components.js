@@ -1,7 +1,8 @@
 //------------------------------------------------------------------------------
 const BalanceBar = require ('./components/balance-bar-component.js');
-const Reels = require ('./components/reels-component.js');
 const GameUi = require ('./components/game-ui-component.js');
+const LegalInfo = require ('./components/legal-info-component.js');
+const Reels = require ('./components/reels-component.js');
 
 //------------------------------------------------------------------------------
 function Components (modules) {
@@ -9,14 +10,16 @@ function Components (modules) {
 
     //------------------------------------------------------------------------------
     this.balanceBar = null;
-    this.reels = null;
     this.gameUi = null;
+    this.legalInfo = null;
+    this.reels = null;
 
     //------------------------------------------------------------------------------
     this.postLoadInit = () => {
         self.balanceBar = new BalanceBar (modules);
-        self.reels = new Reels (modules);
         self.gameUi = new GameUi (modules);
+        self.legalInfo = new LegalInfo (modules);
+        self.reels = new Reels (modules);
     }
 }
 

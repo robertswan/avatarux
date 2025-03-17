@@ -3,6 +3,7 @@ const Idle = require ('./gamestates/idle-gamestate.js');
 const Handshake = require ('./gamestates/handshake-gamestate.js');
 const Loading = require ('./gamestates/loading-gamestate.js');
 const Loaded = require ('./gamestates/loaded-gamestate.js');
+const ShowBaseWins = require ('./gamestates/show-base-wins-gamestate.js');
 const SpinRequest = require ('./gamestates/spin-request-gamestate.js');
 const SpinResolve = require ('./gamestates/spin-resolve-gamestate.js');
 
@@ -21,7 +22,8 @@ function GamestateManager (modules) {
             new Loading (modules),
             new Loaded (modules),
             new SpinRequest (modules),
-            new SpinResolve (modules)
+            new SpinResolve (modules),
+            new ShowBaseWins (modules)
         ];
 
         states.forEach (state => {

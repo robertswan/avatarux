@@ -26,9 +26,23 @@ function GameUiComponent (modules) {
 
     //------------------------------------------------------------------------------
     function construct () {
-        const spin = new PIXI.Sprite (modules.resources.getTexture ('symbol9'));
-        spin.position.set (200, 550);
+
+        const style = {
+            fontFamily: 'Arial',
+            fontSize: 30,
+            fill: 0x000000
+        };
+        const text = new PIXI.Text ('SPIN', style);
+        text.anchor.set (0.5, 0.5);
+
+        const spin = new PIXI.Graphics ();
+        spin.beginFill (0xa0f0a0, 1);
+        spin.drawCircle (0, 0, 50);
+        spin.endFill ();
+
+        spin.position.set (300, 600);
         spin.on ("pointertap", onSpinClicked);
+        spin.addChild (text);
         modules.pixi.stage.addChild (spin);
 
         p.spin = spin;

@@ -40,19 +40,30 @@ function WinScoringComponent (modules) {
             fill:            '#ffc080',
             stroke:          '#000000',
             strokeThickness: 6,
+            lineJoin:        'bevel',
             fontSize:        20,
             align:           'center'
         });
 
         p.winScore = new PIXI.Text ('', style);
-        p.winScore.skew.set (-0.65, 0.3);
+        p.winScore.rotation = 0.3;
         p.winScore.position.set (450, 60);
         p.winScore.anchor.set (0.5);
         modules.components.layout.game.addChild (p.winScore);
 
-        p.totalScore = new PIXI.Text ('', style);
-        p.totalScore.skew.set (-0.65, 0.3);
-        p.totalScore.position.set (90, 350);
+        const style2 = new PIXI.TextStyle ({
+            fontFamily:      'Arial',
+            fill:            '#ffc080',
+            stroke:          '#000000',
+            strokeThickness: 12,
+            lineJoin:        'bevel',
+            fontSize:        30,
+            align:           'center'
+        });
+
+        p.totalScore = new PIXI.Text ('', style2);
+        p.totalScore.rotation = 0.3;
+        p.totalScore.position.set (120, 350);
         p.totalScore.anchor.set (0.5);
         modules.components.layout.game.addChild (p.totalScore);
 

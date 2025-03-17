@@ -94,7 +94,7 @@ const slotfaces5x3 = {
 };
 
 //------------------------------------------------------------------------------
-describe('evaluate wins any ways left to right module', () => {
+describe ('evaluate wins any ways left to right module', () => {
 
     //------------------------------------------------------------------------------
     test ('no win slotface are identified', () => {

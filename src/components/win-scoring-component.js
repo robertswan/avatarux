@@ -44,7 +44,7 @@ function WinScoringComponent (modules) {
             fontSize: 20,
             align: 'center'
         });
-s
+
         p.winScore = new PIXI.Text ('', style);
         p.winScore.skew.set (-0.65, 0.3);
         p.winScore.position.set (450, 60);

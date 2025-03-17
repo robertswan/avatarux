@@ -88,7 +88,7 @@ function ReelsComponent (modules) {
 
     //------------------------------------------------------------------------------
     function construct () {
-        modules.pixi.stage.addChild (p.container);
+        modules.components.layout.game.addChild (p.container);
         p.container.position.set (50, 50);
         p.container.scale.set (0.5, 0.5);
 

@@ -23,7 +23,7 @@ function LegalInfoComponent (modules) {
         };
         p.roundId = new PIXI.Text ('', style);
         p.roundId.position.set (10, 10);
-        modules.pixi.stage.addChild (p.roundId);
+        modules.components.layout.game.addChild (p.roundId);
 
         self.updateRoundId ('');
     }

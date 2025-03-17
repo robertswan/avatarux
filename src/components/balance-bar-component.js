@@ -45,11 +45,16 @@ function BalanceBarComponent (modules) {
         p.win = new PIXI.Text ('', style);
         p.bet = new PIXI.Text ('', style);
 
-        p.balance.position.set (50, 500);
-        p.win.position.set (250, 500);
-        p.bet.position.set (450, 500);
+        p.balance.position.set (10, 490);
+        p.balance.anchor.set (0, 1.0);
 
-        modules.pixi.stage.addChild (p.balance, p.win, p.bet);
+        p.win.position.set (300, 490);
+        p.win.anchor.set (0.5, 1.0);
+
+        p.bet.position.set (590, 490);
+        p.bet.anchor.set (1.0, 1.0);
+
+        modules.components.layout.game.addChild (p.balance, p.win, p.bet);
 
         self.updateBalance (modules.session.balance);
         self.updateWin ();

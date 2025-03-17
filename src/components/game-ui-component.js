@@ -40,10 +40,10 @@ function GameUiComponent (modules) {
         spin.drawCircle (0, 0, 50);
         spin.endFill ();
 
-        spin.position.set (300, 600);
+        spin.position.set (300, 410);
         spin.on ("pointertap", onSpinClicked);
         spin.addChild (text);
-        modules.pixi.stage.addChild (spin);
+        modules.components.layout.game.addChild (spin);
 
         p.spin = spin;
 

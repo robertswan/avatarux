@@ -6,6 +6,7 @@ const Components = require ('./src/components.js');
 const Events = require ('./src/events.js');
 const FakeBackend = require ('./src/backends/fake-backend.js');
 const Gamestates = require ('./src/gamestate-manager.js');
+const Resizer = require ('./src/resizer.js');
 const Resources = require ('./src/resources.js');
 const Session = require ('./src/session.js');
 
@@ -44,6 +45,7 @@ function initModules (onTick) {
         components: null,
         events: null,
         pixi: null,
+        resizer: null,
         resources: null,
         session: null,
         states: null,
@@ -53,6 +55,7 @@ function initModules (onTick) {
     modules.components = new Components (modules);
     modules.events = new Events ();
     modules.pixi = initPixi (onTick, modules);
+    modules.resizer = new Resizer (modules);
     modules.resources = new Resources ();
     modules.session = new Session (modules);
     modules.states = new Gamestates (modules);

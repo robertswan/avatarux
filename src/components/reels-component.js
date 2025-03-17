@@ -53,6 +53,11 @@ function ReelsComponent (modules) {
     }
 
     //------------------------------------------------------------------------------
+    this.updateWinScoring = (win) => {
+        modules.components.winScoring.showWin (modules.session.spin.round.grossWin, p.wins [p.winIdx]);
+    }
+
+    //------------------------------------------------------------------------------
     this.onWinInterval = () => {
         p.cols.forEach (col => col.reset ());
         ++p.winFlashIdx;
@@ -60,6 +65,7 @@ function ReelsComponent (modules) {
         if (p.winFlashIdx === 0) {
             ++p.winIdx;
             p.winIdx = (p.winIdx % p.wins.length);
+            self.updateWinScoring ();
         }
         if (p.winFlashIdx % 2 === 1) {
             self.flashSymbols (p.wins [p.winIdx].symbolsUsed);
@@ -73,6 +79,7 @@ function ReelsComponent (modules) {
         p.wins = wins;
         p.winIdx = 0;
         p.winFlashIdx = 0;
+        self.updateWinScoring ();
         self.onWinInterval ();
         p.winInterval = setInterval (self.onWinInterval.bind (self), config. winFlashDuration);
     }
@@ -84,6 +91,7 @@ function ReelsComponent (modules) {
             p.winInterval = null;
         }
         p.cols.forEach (col => col.reset ());
+        modules.components.winScoring.hide ();
     }
 
     //------------------------------------------------------------------------------

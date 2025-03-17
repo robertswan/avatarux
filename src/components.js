@@ -4,6 +4,7 @@ const GameUi = require ('./components/game-ui-component.js');
 const Layout = require ('./components/layout-component.js');
 const LegalInfo = require ('./components/legal-info-component.js');
 const Reels = require ('./components/reels-component.js');
+const WinScoring = require ('./components/win-scoring-component.js');
 
 //------------------------------------------------------------------------------
 function Components (modules) {
@@ -15,6 +16,7 @@ function Components (modules) {
     this.layout = null;
     this.legalInfo = null;
     this.reels = null;
+    this.winScoring = null;
 
     //------------------------------------------------------------------------------
     this.postLoadInit = () => {
@@ -25,6 +27,7 @@ function Components (modules) {
         self.gameUi = new GameUi (modules);
         self.legalInfo = new LegalInfo (modules);
         self.reels = new Reels (modules);
+        self.winScoring = new WinScoring (modules);
     }
 }
 

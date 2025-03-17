@@ -73,7 +73,7 @@ function FakeBackend (modules) {
 
     //------------------------------------------------------------------------------
     function evaluateWins (round, reels) {
-        const wins = Evaluate (reels);
+        const wins = Evaluate (round.bet, reels);
         return wins;
     }
 

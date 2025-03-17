@@ -9,7 +9,7 @@ function Resizer (modules) {
     function onResize () {
         self.w = window.innerWidth;
         self.h = window.innerHeight;
-        modules.pixi.renderer.resize (self.w, self.h);
+        // modules.pixi.renderer.resize (self.w, self.h);
 
         if (modules.components.layout) {
             modules.components.layout.resize (self.w, self.h);

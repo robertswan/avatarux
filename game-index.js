@@ -21,7 +21,8 @@ function initPixi (onTick, payload) {
         height:            window.innerHeight,
         resolution:        window.devicePixelRatio,
         clearBeforeRender: true,
-        autoResize:        false,
+        resizeTo:          window,
+        autoResize:        true,
         transparent:       false,
         roundPixels:       false,
         view:              window.document.getElementById ('canvas')

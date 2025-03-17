@@ -37,13 +37,13 @@ function GameUiComponent (modules) {
 
         const spin = new PIXI.Graphics ();
         spin.beginFill (0xa0f0a0, 1);
-        spin.drawCircle (0, 0, 50);
+        spin.drawCircle (0, 0, 44);
         spin.endFill ();
 
         spin.position.set (300, 410);
         spin.on ("pointertap", onSpinClicked);
         spin.addChild (text);
-        modules.components.layout.game.addChild (spin);
+        modules.components.layout.ui.addChild (spin);
 
         p.spin = spin;
 

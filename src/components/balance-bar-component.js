@@ -54,7 +54,7 @@ function BalanceBarComponent (modules) {
         p.bet.position.set (590, 490);
         p.bet.anchor.set (1.0, 1.0);
 
-        modules.components.layout.game.addChild (p.balance, p.win, p.bet);
+        modules.components.layout.ui.addChild (p.balance, p.win, p.bet);
 
         self.updateBalance (modules.session.balance);
         self.updateWin ();

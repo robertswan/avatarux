@@ -60,12 +60,11 @@ function FakeBackend (modules) {
         for (let i = 0; i < p.w; ++i) {
             const col = [];
             for (let j = 0; j < p.h; ++j) {
-                // only allow bonus symbols on reels 0, 2, 4
-                if (i % 2 === 0) {
-                    col.push (Math.floor (Math.random () * 5));
-                } else {
-                    col.push (Math.floor (Math.random () * 4) + 1);
-                }
+                col.push (Math.floor (Math.random () * 4) + 1);
+            }
+            // chance to add a bonus symbols on reels 0, 2, 4
+            if (i % 2 === 0 && Math.random () <= MathConfig.rules.chancePerColumnPerBonus) {
+                col [Math.floor (Math.random () * 3)] = 0;
             }
             reels.push (col);
         }

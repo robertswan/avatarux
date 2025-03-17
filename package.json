@@ -5,10 +5,12 @@
         "start": "static -a 0.0.0.0 deploy",
         "clean": "cross-var \"rm -rf $npm_package_deploy/src && node scripts/file/mkdir.js $npm_package_deploy/src\"",
         "game-debug": "cross-var \"node scripts/build-game-src.js -t game -b debug\"",
-        "game-debug-watch": "cross-var \"node scripts/build-game-src.js -t game -b debug -w\""
+        "game-debug-watch": "cross-var \"node scripts/build-game-src.js -t game -b debug -w\"",
+        "test": "jest --coverage=true"
     },
     "dependencies": {
         "@tweenjs/tween.js": "^23.1.1",
+        "jest": "^29.7.0",
         "pixi.js": "5.2.1"
     },
     "devDependencies": {

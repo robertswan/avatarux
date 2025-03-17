@@ -14,9 +14,9 @@ function WinScoringComponent (modules) {
     //------------------------------------------------------------------------------
     this.showWin = (totalWin, win) => {
         let text = p.strings.winScore;
-        text = text.replace ('{COUNT}', win.combinations);
+        text = text.replace ('{COUNT}', win.ways);
         text = text.replace ('{SYMBOL}', win.symbolId);
-        text = text.replace ('{SINGLE}', win.grossWinPerCombination);
+        text = text.replace ('{SINGLE}', win.grossWinPerWay);
         text = text.replace ('{TOTAL}', win.grossWin);
         p.winScore.text = text;
         p.winScore.visible = true;
@@ -38,20 +38,13 @@ function WinScoringComponent (modules) {
     function construct () {
         const style = new PIXI.TextStyle ({
             fontFamily: 'Arial',
-            dropShadow: true,
-            dropShadowAlpha: 0.8,
-            dropShadowAngle: 0.0,
-            dropShadowBlur: 4,
-            dropShadowColor: '0x000000',
-            dropShadowDistance: 10,
-            fill: '#ffffff',
-            stroke: '#004620',
+            fill: '#ffc080',
+            stroke: '#000000',
             strokeThickness: 6,
             fontSize: 20,
-            fontWeight: 'lighter',
             align: 'center'
         });
-
+s
         p.winScore = new PIXI.Text ('', style);
         p.winScore.skew.set (-0.65, 0.3);
         p.winScore.position.set (450, 60);

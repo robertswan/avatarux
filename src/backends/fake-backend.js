@@ -4,14 +4,13 @@ const MathConfig = require ('./math-config.json');
 const Evaluate = require ('./evaluate-wins-any-ways-left-to-right.js');
 
 //------------------------------------------------------------------------------
-function FakeBackend (modules) {
-
+function FakeBackend () {
     //------------------------------------------------------------------------------
     const p = {
         balance: 10000,
-        w: MathConfig.reels.w,
-        h: MathConfig.reels.h,
-        ways: Math.pow (MathConfig.reels.h, MathConfig.reels.w),
+        w:       MathConfig.reels.w,
+        h:       MathConfig.reels.h,
+        ways:    Math.pow (MathConfig.reels.h, MathConfig.reels.w),
         roundId: Math.floor (Math.random () * 100000000) + 100000000
     };
 
@@ -22,35 +21,34 @@ function FakeBackend (modules) {
     //------------------------------------------------------------------------------
     this.requestOpenGame = (onResponse) => {
         const response = {
-            balance: p.balance,
+            balance:    p.balance,
             initialBet: 100,
-            bets: [100],
+            bets:       [100],
 
             paytable: MathConfig.paytable,
-            reels: MathConfig.reels,
-            symbols: MathConfig.symbols,
-            ways: p.ways
+            reels:    MathConfig.reels,
+            symbols:  MathConfig.symbols,
+            ways:     p.ways
         };
 
         setTimeout (() => onResponse (response), config.simulateServerDelay);
-    }
+    };
 
     //------------------------------------------------------------------------------
     function initRound (bet) {
-
         p.balance -= bet;
         p.roundId += Math.floor (Math.random () * 10000);
 
         if (p.balance < 0) {
-            p.balance = 10000 - bet // cycle now to avoid errors. Standard demo behaviour
+            p.balance = 10000 - bet; // cycle now to avoid errors. Standard demo behaviour
         }
 
         return {
             postSpinBalance: p.balance,
-            finalBalance: p.balance,
-            bet: bet,
-            roundId: p.roundId,
-            grossWin: 0
+            finalBalance:    p.balance,
+            bet:             bet,
+            roundId:         p.roundId,
+            grossWin:        0
         };
     }
 
@@ -79,7 +77,6 @@ function FakeBackend (modules) {
 
     //------------------------------------------------------------------------------
     this.requestSpin = (bet, onResponse) => {
-
         const round = initRound (bet);
         const reels = randomiseReels ();
         const wins = evaluateWins (round, reels);

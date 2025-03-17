@@ -4,20 +4,20 @@ function BalanceBarComponent (modules) {
 
     const p = {
         balance: null,
-        win: null,
-        bet: null,
+        win:     null,
+        bet:     null,
 
         strings: {
             balance: 'Balance: ',
-            win: 'Win: ',
-            bet: 'Bet: ',
+            win:     'Win: ',
+            bet:     'Bet: '
         }
     };
 
     //------------------------------------------------------------------------------
     this.updateBalance = (value) => {
         p.balance.text = p.strings.balance + value;
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.updateWin = (value) => {
@@ -27,19 +27,19 @@ function BalanceBarComponent (modules) {
         } else {
             p.win.visible = false;
         }
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.updateBet = (value) => {
         p.bet.text = p.strings.bet + value;
-    }
+    };
 
     //------------------------------------------------------------------------------
     function construct () {
         const style = {
             fontFamily: 'Arial',
-            fontSize: 20,
-            fill: 0xffffff
+            fontSize:   20,
+            fill:       0xffffff
         };
         p.balance = new PIXI.Text ('', style);
         p.win = new PIXI.Text ('', style);

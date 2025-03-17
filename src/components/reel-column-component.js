@@ -1,24 +1,23 @@
 //------------------------------------------------------------------------------
-const Tween = require ("@tweenjs/tween.js");
+const Tween = require ('@tweenjs/tween.js');
 
-const GameConfig = require ("../game-config.json");
+const GameConfig = require ('../game-config.json');
 
 //------------------------------------------------------------------------------
 function ReelColumnComponent (modules, colIdx, columnface, parent) {
-
     //------------------------------------------------------------------------------
     const p = {
         container: new PIXI.Container (),
-        symbols: [],
+        symbols:   [],
         symbolIds: []
     };
 
     const config = {
-        symbolH: 0,
-        dropDuration: 300,
-        dropHeight: 500,
+        symbolH:            0,
+        dropDuration:       300,
+        dropHeight:         500,
         dropSymbolInterval: 50
-    }
+    };
 
     //------------------------------------------------------------------------------
     function getSymbolTex (symbolId, isHighlight) {
@@ -28,7 +27,6 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
 
     //------------------------------------------------------------------------------
     this.beginSpin = (delay, onComplete) => {
-
         const lastIdx = p.symbols.length - 1;
 
         p.symbols.forEach ((symbol, idx) => {
@@ -42,7 +40,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
                 tween.onComplete (onComplete);
             }
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.endSpin = (columnface, delay, onComplete) => {
@@ -66,7 +64,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
                 tween.onComplete (onComplete);
             }
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.flashSymbols = (symbolsUsed) => {
@@ -79,7 +77,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
                 // symbol.alpha = 0.5;
             }
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.reset = () => {
@@ -87,7 +85,7 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
             symbol.texture = getSymbolTex (p.symbolIds [idx], false);
             // symbol.alpha = 1;
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     function construct () {
@@ -97,14 +95,13 @@ function ReelColumnComponent (modules, colIdx, columnface, parent) {
         p.container.x = refTex.width * colIdx;
         parent.addChild (p.container);
 
-        const s = modules.session;
         columnface.forEach ((symbolId, idx) => {
             const symbol = new PIXI.Sprite (getSymbolTex (symbolId, false));
             symbol.y = idx * config.symbolH;
             p.container.addChild (symbol);
             p.symbols.push (symbol);
             p.symbolIds.push (symbolId);
-        })
+        });
     }
     construct ();
 }

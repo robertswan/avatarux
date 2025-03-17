@@ -13,7 +13,7 @@ function Session (modules) {
         self.openGame = response;
         self.balance = response.balance;
         self.bet = response.initialBet;
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.recordSpinResponse = (response) => {
@@ -21,13 +21,13 @@ function Session (modules) {
         self.balance = response.round.postSpinBalance;
         modules.components.balanceBar.updateBalance (self.balance);
         modules.components.legalInfo.updateRoundId (response.round.roundId);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.finaliseSpinResponse = () => {
         self.balance = self.spin.round.finalBalance;
         modules.components.balanceBar.updateBalance (self.balance);
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

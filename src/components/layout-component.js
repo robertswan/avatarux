@@ -24,7 +24,7 @@ function LayoutComponent (modules) {
 
         p.parent.scale.set (scale);
         p.parent.position.set ((w - config.contentW * scale) * 0.5, (h - config.contentH * scale) * 0.5);
-    }
+    };
 
     //------------------------------------------------------------------------------
     function construct () {

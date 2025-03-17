@@ -1,7 +1,5 @@
 //------------------------------------------------------------------------------
 function ShowBaseWinsGamestate (modules) {
-    const self = this;
-
     this.id = 'showBaseWins';
 
     //------------------------------------------------------------------------------
@@ -10,12 +8,12 @@ function ShowBaseWinsGamestate (modules) {
         modules.components.balanceBar.updateWin (modules.session.spin.round.grossWin);
         modules.components.reels.cycleWins (modules.session.spin.wins);
         modules.events.push ({id: 'CYCLE_STARTED'});
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.transitions = {
         CYCLE_STARTED: {nextState: 'idle'}
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

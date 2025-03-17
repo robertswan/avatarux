@@ -30,7 +30,7 @@ function GamestateManager (modules) {
             console.assert (typeof state.id === 'string');
             console.assert (!(state.id in self.states));
             self.states [state.id] = state;
-        })
+        });
     }
     construct ();
 
@@ -51,7 +51,7 @@ function GamestateManager (modules) {
         if (self.currentState && self.currentState.onTick) {
             self.currentState.onTick ();
         }
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.changeState = (stateName) => {
@@ -68,7 +68,7 @@ function GamestateManager (modules) {
         if (self.currentState && self.currentState.onEnter) {
             self.currentState.onEnter ();
         }
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

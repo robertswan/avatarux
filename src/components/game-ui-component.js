@@ -11,13 +11,13 @@ function GameUiComponent (modules) {
     this.enable = () => {
         p.spin.interactive = true;
         p.spin.visible = true;
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.disable = () => {
         p.spin.interactive = false;
         p.spin.visible = false;
-    }
+    };
 
     //------------------------------------------------------------------------------
     function onSpinClicked () {
@@ -26,11 +26,10 @@ function GameUiComponent (modules) {
 
     //------------------------------------------------------------------------------
     function construct () {
-
         const style = {
             fontFamily: 'Arial',
-            fontSize: 30,
-            fill: 0x000000
+            fontSize:   30,
+            fill:       0x000000
         };
         const text = new PIXI.Text ('SPIN', style);
         text.anchor.set (0.5, 0.5);
@@ -41,7 +40,7 @@ function GameUiComponent (modules) {
         spin.endFill ();
 
         spin.position.set (300, 410);
-        spin.on ("pointertap", onSpinClicked);
+        spin.on ('pointertap', onSpinClicked);
         spin.addChild (text);
         modules.components.layout.ui.addChild (spin);
 

@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-window.PIXI = require ("pixi.js");
-const Tween = require ("@tweenjs/tween.js");
+window.PIXI = require ('pixi.js');
+const Tween = require ('@tweenjs/tween.js');
 
 const Components = require ('./src/components.js');
 const Events = require ('./src/events.js');
@@ -12,8 +12,6 @@ const Session = require ('./src/session.js');
 
 //------------------------------------------------------------------------------
 function initPixi (onTick, payload) {
-    const canvas = document.getElementById ('canvas');
-
     PIXI.settings.RESOLUTION = window.devicePixelRatio || 1;
 
     const rendererOptions = {
@@ -32,7 +30,7 @@ function initPixi (onTick, payload) {
     PIXI.utils.skipHello ();
 
     const renderer = new PIXI.Application (rendererOptions);
-    renderer.view.style.position = "fixed";
+    renderer.view.style.position = 'fixed';
 
     renderer.ticker.add (() => {onTick (payload);});
 
@@ -42,14 +40,14 @@ function initPixi (onTick, payload) {
 //------------------------------------------------------------------------------
 function initModules (onTick) {
     const modules = {
-        backend: null,
+        backend:    null,
         components: null,
-        events: null,
-        pixi: null,
-        resizer: null,
-        resources: null,
-        session: null,
-        states: null,
+        events:     null,
+        pixi:       null,
+        resizer:    null,
+        resources:  null,
+        session:    null,
+        states:     null
     };
 
     modules.backend = new FakeBackend ();
@@ -72,8 +70,8 @@ function onTick (payload) {
 
 //------------------------------------------------------------------------------
 window.swan.game = {
-    run: function (pageConfig) {
+    run: function (unused_pageConfig) {
         const modules = initModules (onTick);
         modules.states.changeState ('loading');
     }
-}
+};

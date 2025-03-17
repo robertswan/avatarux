@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-function Events (manifest) {
+function Events () {
     const self = this;
 
     this.queue = [];
@@ -7,7 +7,7 @@ function Events (manifest) {
     //------------------------------------------------------------------------------
     this.push = (event) => {
         self.queue.push (event);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.hasPending = () => self.queue.length > 0;
@@ -16,7 +16,7 @@ function Events (manifest) {
     this.pop = () => {
         console.assert (self.hasPending ());
         return self.queue.shift ();
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

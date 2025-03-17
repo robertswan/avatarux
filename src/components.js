@@ -28,7 +28,7 @@ function Components (modules) {
         self.legalInfo = new LegalInfo (modules);
         self.reels = new Reels (modules);
         self.winScoring = new WinScoring (modules);
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

@@ -1,7 +1,5 @@
 //------------------------------------------------------------------------------
 function SpinRequestGamestate (modules) {
-    const self = this;
-
     this.id = 'spinRequest';
 
     //------------------------------------------------------------------------------
@@ -34,12 +32,12 @@ function SpinRequestGamestate (modules) {
         p.waitFor = 2;
         modules.components.reels.beginSpin (onReelsAnimComplete);
         modules.backend.requestSpin (modules.session.bet, onSpinResponse);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.transitions = {
         REQUEST_COMPLETE: {nextState: 'spinResolve'}
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

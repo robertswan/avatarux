@@ -16,7 +16,8 @@ function Resources () {
     function construct () {
         PIXI.Loader.shared.on ('error', (a, b, c, unused_d) => {
             console.log (a.message);
-            console.log (c.url);});
+            console.log (c.url);
+        });
     }
     construct ();
 
@@ -24,7 +25,7 @@ function Resources () {
     this.getTexture = (resourceName) => {
         console.assert (self.textures [resourceName]);
         return self.textures [resourceName];
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.loadTextures = (bundleName, onLoaded) => {
@@ -36,10 +37,10 @@ function Resources () {
             const r = PIXI.Loader.shared.resources;
             requests.forEach (request => {
                 self.textures [request.name] = r [request.name].texture;
-            })
+            });
             onLoaded (bundleName);
         });
-    }
+    };
 }
 
 //------------------------------------------------------------------------------

@@ -8,19 +8,19 @@ function ReelsComponent (modules) {
     //------------------------------------------------------------------------------
     const p = {
         container: new PIXI.Container (),
-        cols: []
+        cols:      []
     };
 
     const config = {
         appearDelayPerCol: 100,
 
-        wins: null,
+        wins:             null,
         winFlashDuration: 300,
         winFlashesPerWin: 3,
-        winIdx: 0,
-        winFlashIdx: 0,
-        winInterval: null,
-    }
+        winIdx:           0,
+        winFlashIdx:      0,
+        winInterval:      null
+    };
 
     //------------------------------------------------------------------------------
     this.beginSpin = (onComplete) => {
@@ -28,7 +28,7 @@ function ReelsComponent (modules) {
             const cb = (idx === p.cols.length - 1) ? onComplete : null;
             col.beginSpin (idx * config.appearDelayPerCol, cb);
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.endSpin = (slotface, onComplete) => {
@@ -36,26 +36,26 @@ function ReelsComponent (modules) {
             const cb = (idx === p.cols.length - 1) ? onComplete : null;
             col.endSpin (slotface [idx], idx * config.appearDelayPerCol, cb);
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.snapSymbols = (slotface) => {
         p.cols.forEach ((col, idx) => {
             col.snaSymbols (slotface [idx]);
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.flashSymbols = (symbolsUsed) => {
         p.cols.forEach ((col, idx) => {
             col.flashSymbols (symbolsUsed [idx]);
         });
-    }
+    };
 
     //------------------------------------------------------------------------------
-    this.updateWinScoring = (win) => {
+    this.updateWinScoring = (unused_win) => {
         modules.components.winScoring.showWin (modules.session.spin.round.grossWin, p.wins [p.winIdx]);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.onWinInterval = () => {
@@ -70,7 +70,7 @@ function ReelsComponent (modules) {
         if (p.winFlashIdx % 2 === 1) {
             self.flashSymbols (p.wins [p.winIdx].symbolsUsed);
         }
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.cycleWins = (wins) => {
@@ -82,7 +82,7 @@ function ReelsComponent (modules) {
         self.updateWinScoring ();
         self.onWinInterval ();
         p.winInterval = setInterval (self.onWinInterval.bind (self), config. winFlashDuration);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.reset = () => {
@@ -92,7 +92,7 @@ function ReelsComponent (modules) {
         }
         p.cols.forEach (col => col.reset ());
         modules.components.winScoring.hide ();
-    }
+    };
 
     //------------------------------------------------------------------------------
     function construct () {

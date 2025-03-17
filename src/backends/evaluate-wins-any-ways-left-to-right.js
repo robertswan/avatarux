@@ -14,7 +14,7 @@ function findSymbolWin (symbol, slotface) {
 
         if (canWinLonger) {
             // check for more wins on the column
-            columnface.forEach ((symbolId, y) => {
+            columnface.forEach ((symbolId) => {
                 used.push (symbolId === symbol);
                 if (symbolId === symbol) {
                     ++ways;
@@ -33,7 +33,6 @@ function findSymbolWin (symbol, slotface) {
                     allWays *= ways;
                 }
                 ++maxLength;
-
             }
         } else {
             // no checks needed - win conditions already broken by previous column
@@ -43,12 +42,12 @@ function findSymbolWin (symbol, slotface) {
     });
 
     return {
-        symbolId: symbol,
-        ways: allWays,
-        symbolsUsed: allUsed,
-        length: maxLength,
+        symbolId:       symbol,
+        ways:           allWays,
+        symbolsUsed:    allUsed,
+        length:         maxLength,
         grossWinPerWay: 0,
-        grossWin: 0
+        grossWin:       0
     };
 }
 
@@ -57,7 +56,6 @@ function EvaluateWinsAnyWaysLeftToRight (bet, slotface) {
     const wins = [];
 
     for (let key in MathConfig.symbols) {
-
         // sweep left to right, once for each symbol that has "anyWays" wins set in the config
         if (MathConfig.symbols [key].anyWays) {
             const symbolId = parseInt (key);

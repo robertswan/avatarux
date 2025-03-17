@@ -3,10 +3,10 @@ function WinScoringComponent (modules) {
     const self = this;
 
     const p = {
-        winScore: null,
+        winScore:   null,
         totalScore: null,
-        strings: {
-            winScore: '{COUNT} ways with symbol {SYMBOL}\nEach way worth {SINGLE} for {TOTAL}',
+        strings:    {
+            winScore:   '{COUNT} ways with symbol {SYMBOL}\nEach way worth {SINGLE} for {TOTAL}',
             totalScore: 'Total win {TOTAL}'
         }
     };
@@ -25,24 +25,23 @@ function WinScoringComponent (modules) {
         text = text.replace ('{TOTAL}', totalWin);
         p.totalScore.text = text;
         p.totalScore.visible = true;
-    }
-
+    };
 
     //------------------------------------------------------------------------------
     this.hide = () => {
         p.winScore.visible = false;
         p.totalScore.visible = false;
-    }
+    };
 
     //------------------------------------------------------------------------------
     function construct () {
         const style = new PIXI.TextStyle ({
-            fontFamily: 'Arial',
-            fill: '#ffc080',
-            stroke: '#000000',
+            fontFamily:      'Arial',
+            fill:            '#ffc080',
+            stroke:          '#000000',
             strokeThickness: 6,
-            fontSize: 20,
-            align: 'center'
+            fontSize:        20,
+            align:           'center'
         });
 
         p.winScore = new PIXI.Text ('', style);
@@ -56,7 +55,6 @@ function WinScoringComponent (modules) {
         p.totalScore.position.set (90, 350);
         p.totalScore.anchor.set (0.5);
         modules.components.layout.game.addChild (p.totalScore);
-
 
         self.hide ();
     }

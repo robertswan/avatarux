@@ -1,7 +1,5 @@
 //------------------------------------------------------------------------------
 function SpinResolveGamestate (modules) {
-    const self = this;
-
     this.id = 'spinResolve';
 
     //------------------------------------------------------------------------------
@@ -14,13 +12,13 @@ function SpinResolveGamestate (modules) {
     //------------------------------------------------------------------------------
     this.onEnter = () => {
         modules.components.reels.endSpin (modules.session.spin.reels, onReelsAnimComplete);
-    }
+    };
 
     //------------------------------------------------------------------------------
     this.transitions = {
         SPIN_WITH_WINS: {nextState: 'showBaseWins'},
-        SPIN_NO_WINS: {nextState: 'idle'},
-    }
+        SPIN_NO_WINS:   {nextState: 'idle'}
+    };
 }
 
 //------------------------------------------------------------------------------

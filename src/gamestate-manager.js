@@ -4,6 +4,7 @@ const Handshake = require ('./gamestates/handshake-gamestate.js');
 const Loading = require ('./gamestates/loading-gamestate.js');
 const Loaded = require ('./gamestates/loaded-gamestate.js');
 const SpinRequest = require ('./gamestates/spin-request-gamestate.js');
+const SpinResolve = require ('./gamestates/spin-resolve-gamestate.js');
 
 //------------------------------------------------------------------------------
 function GamestateManager (modules) {
@@ -19,7 +20,8 @@ function GamestateManager (modules) {
             new Handshake (modules),
             new Loading (modules),
             new Loaded (modules),
-            new SpinRequest (modules)
+            new SpinRequest (modules),
+            new SpinResolve (modules)
         ];
 
         states.forEach (state => {

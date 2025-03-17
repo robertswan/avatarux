@@ -21,7 +21,12 @@ function BalanceBarComponent (modules) {
 
     //------------------------------------------------------------------------------
     this.updateWin = (value) => {
-        p.win.text = p.strings.win + value;
+        if (typeof value === 'number') {
+            p.win.visible = true;
+            p.win.text = p.strings.win + value;
+        } else {
+            p.win.visible = false;
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -36,15 +41,19 @@ function BalanceBarComponent (modules) {
             fontSize: 20,
             fill: 0xffffff
         };
-        p.balance = new PIXI.Text (p.strings.balance, style);
-        p.win = new PIXI.Text (p.strings.win, style);
-        p.bet = new PIXI.Text (p.strings.bet, style);
+        p.balance = new PIXI.Text ('', style);
+        p.win = new PIXI.Text ('', style);
+        p.bet = new PIXI.Text ('', style);
 
         p.balance.position.set (50, 500);
         p.win.position.set (250, 500);
         p.bet.position.set (450, 500);
 
         modules.pixi.stage.addChild (p.balance, p.win, p.bet);
+
+        self.updateBalance (modules.session.balance);
+        self.updateWin ();
+        self.updateBet (modules.session.bet);
     }
     construct ();
 }

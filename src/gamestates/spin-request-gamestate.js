@@ -5,21 +5,40 @@ function SpinRequestGamestate (modules) {
     this.id = 'spinRequest';
 
     //------------------------------------------------------------------------------
+    const p = {
+        waitFor: 0
+    };
+
+    //------------------------------------------------------------------------------
+    function checkComplete () {
+        --p.waitFor;
+        if (p.waitFor === 0) {
+            modules.events.push ({id: 'REQUEST_COMPLETE'});
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    function onReelsAnimComplete () {
+        checkComplete ();
+    }
+
+    //------------------------------------------------------------------------------
     function onSpinResponse (response) {
         modules.session.recordSpinResponse (response);
-        modules.events.push ({id: ''})
-        //
+        console.log (response);
+        checkComplete ();
     }
 
     //------------------------------------------------------------------------------
     this.onEnter = () => {
+        p.waitFor = 2;
+        modules.components.reels.beginSpin (onReelsAnimComplete);
         modules.backend.requestSpin (modules.session.bet, onSpinResponse);
-        // start spin animations
     }
 
     //------------------------------------------------------------------------------
     this.transitions = {
-        // GAME_ROUND_BEGIN: {nextState: 'spinRequest'}
+        REQUEST_COMPLETE: {nextState: 'spinResolve'}
     }
 }
 

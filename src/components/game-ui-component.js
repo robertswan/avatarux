@@ -27,7 +27,7 @@ function GameUiComponent (modules) {
     //------------------------------------------------------------------------------
     function construct () {
         const spin = new PIXI.Sprite (modules.resources.getTexture ('symbol9'));
-        spin.position.set (100, 100);
+        spin.position.set (200, 550);
         spin.on ("pointertap", onSpinClicked);
         modules.pixi.stage.addChild (spin);
 

@@ -10,22 +10,22 @@ function Session (modules) {
 
     //------------------------------------------------------------------------------
     this.recordOpenGame = (response) => {
-        this.openGame = response;
-        this.balance = response.balance;
-        this.bet = response.initialBet;
+        self.openGame = response;
+        self.balance = response.balance;
+        self.bet = response.initialBet;
     }
 
     //------------------------------------------------------------------------------
     this.recordSpinResponse = (response) => {
-        this.spin = response;
-        this.balance = response.round.postSpinBalance;
-        modules.components.balanceBar.updateBalance (this.balance);
+        self.spin = response;
+        self.balance = response.round.postSpinBalance;
+        modules.components.balanceBar.updateBalance (self.balance);
     }
 
     //------------------------------------------------------------------------------
     this.finaliseSpinResponse = () => {
-        this.balance = p.spin.round.finalBalance;
-        modules.components.balanceBar.updateBalance (this.balance);
+        self.balance = p.spin.round.finalBalance;
+        modules.components.balanceBar.updateBalance (self.balance);
     }
 }
 

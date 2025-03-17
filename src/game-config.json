@@ -1,0 +1,23 @@
+{
+    "symbols": {
+        "0": {"resourcePrefix": "symbolBonus"},
+        "1": {"resourcePrefix": "symbolH1"},
+        "2": {"resourcePrefix": "symbolH2"},
+        "3": {"resourcePrefix": "symbolH3"},
+        "4": {"resourcePrefix": "symbolH4"},
+        "5": {"resourcePrefix": "symbolH5"},
+        "6": {"resourcePrefix": "symbolH6"},
+        "7": {"resourcePrefix": "symbolM1"},
+        "8": {"resourcePrefix": "symbolM2"},
+        "9": {"resourcePrefix": "symbolM3"},
+        "10": {"resourcePrefix": "symbolM4"},
+        "11": {"resourcePrefix": "symbolM5"},
+        "12": {"resourcePrefix": "symbolM6"},
+        "13": {"resourcePrefix": "symbolA"},
+        "14": {"resourcePrefix": "symbolQ"},
+        "15": {"resourcePrefix": "symbolK"},
+        "16": {"resourcePrefix": "symbolJ"},
+        "17": {"resourcePrefix": "symbol10"},
+        "18": {"resourcePrefix": "symbol9"}
+    }
+}

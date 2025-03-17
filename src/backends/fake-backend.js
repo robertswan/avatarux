@@ -26,14 +26,14 @@ function FakeBackend (modules) {
             ways: p.ways
         };
 
-        setTimeout (() => onResponse (response), 1000);
+        setTimeout (() => onResponse (response), 200);
     }
 
     //------------------------------------------------------------------------------
     function initRound (bet) {
 
         p.balance -= bet;
-        p.roundId += Math.floor (Math.random () * 1000);
+        p.roundId += Math.floor (Math.random () * 200);
 
         if (p.balance < 0) {
             p.balance = 10000 - bet // cycle now to avoid errors. Standard demo behaviour
@@ -48,11 +48,11 @@ function FakeBackend (modules) {
     }
 
     //------------------------------------------------------------------------------
-    function spinReels () {
+    function randomiseReels () {
         const reels = [];
-        for (let i = 0; i < p.x; ++i) {
+        for (let i = 0; i < p.w; ++i) {
             const col = [];
-            for (let j = 0; j < p.y; ++j) {
+            for (let j = 0; j < p.h; ++j) {
                 col.push (Math.floor (Math.random () * 5) + 1);
             }
             reels.push (col);
@@ -62,13 +62,14 @@ function FakeBackend (modules) {
 
     //------------------------------------------------------------------------------
     function evaluateWins (round, reels) {
+        return {};
     }
 
     //------------------------------------------------------------------------------
     this.requestSpin = (bet, onResponse) => {
 
         const round = initRound (bet);
-        const reels = spinReels ();
+        const reels = randomiseReels ();
         const wins = evaluateWins (round, reels);
         const response = {
             round,

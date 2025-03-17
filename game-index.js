@@ -1,5 +1,6 @@
 //------------------------------------------------------------------------------
 window.PIXI = require ("pixi.js");
+const Tween = require ("@tweenjs/tween.js");
 
 const Components = require ('./src/components.js');
 const Events = require ('./src/events.js');
@@ -61,6 +62,7 @@ function initModules (onTick) {
 
 //------------------------------------------------------------------------------
 function onTick (payload) {
+    Tween.update ();
     payload.states.tick ();
 }
 

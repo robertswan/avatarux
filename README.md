@@ -4,8 +4,8 @@
 
 # Installation
 
-The environment and base code was taken from an older project to avoid using any 
-This means node and npm are older versions, as are some of the npm modules, which now give errors
+The environment and base code was taken from an older project to avoid using any proprietary code.
+This means node and npm are older versions, as are some of the npm modules, which now give old version errors, but still work.
 
 ## Environment Prerequisites
 

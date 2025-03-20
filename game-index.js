@@ -1,5 +1,4 @@
 //------------------------------------------------------------------------------
-window.PIXI = require ('pixi.js');
 const Tween = require ('@tweenjs/tween.js');
 
 const Components = require ('./src/components.js');

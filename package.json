@@ -5,7 +5,7 @@
     "start": "static -a 0.0.0.0 deploy",
     "clean": "cross-var \"rm -rf $npm_package_deploy/src && node scripts/file/mkdir.js $npm_package_deploy/src\"",
     "game-debug": "cross-var \"node scripts/build-game-src.js -t game -b debug\"",
-    "game-debug-watch": "cross-var \"node scripts/build-game-src.js -t game -b debug -w\"",
+    "game-release": "cross-var \"node scripts/build-game-src.js -t game -b release\"",
     "test": "jest --coverage=true",
     "lint": "cross-var eslint src/**/*.js game-index.js",
     "lint-fix": "cross-var eslint src/**/*.js game-index.js --fix",

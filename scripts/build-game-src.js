@@ -37,6 +37,11 @@ const builds = {
         browserify: {debug: true, paths: paths, cache: {}, packageCache: {}, verbose: false, delay: 1000},
         babelify:   {presets: ["@babel/preset-env"]},
         envify:     {_: "purge", PROJECT: args.project, BUILD: "DEBUG", FEATURE: args.feature, AUDIO: args.audio}
+    },
+    release: {
+        browserify: {debug: false, paths: paths, cache: {}, packageCache: {}},
+        babelify:   {global: true, presets: ["@babel/preset-env"]},
+        envify:     {_: "purge", PROJECT: args.project, BUILD: "RELEASE"}
     }
 };
 
